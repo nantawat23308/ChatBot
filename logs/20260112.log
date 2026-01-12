@@ -1,0 +1,32 @@
+2026-01-12 12:16:34,315 [INFO] project_agent: LangChainService initialized with Bedrock model and Redis-backed history.
+2026-01-12 12:16:35,884 [INFO] project_agent: LangChainService initialized with Bedrock model and Redis-backed history.
+2026-01-12 12:16:53,231 [INFO] project_agent: Session: 1
+2026-01-12 12:16:53,231 [INFO] project_agent: Using Redis URL: redis://localhost:6379/0
+2026-01-12 12:16:53,486 [INFO] langchain_aws.chat_models.bedrock_converse: Using Bedrock Converse API to generate response
+2026-01-12 12:16:54,618 [INFO] project_agent: Response: Hello! Welcome to our product support. I'm here to help you with any questions or issues you may have. How can I assist you today?
+2026-01-12 12:17:03,126 [INFO] project_agent: Session: 1
+2026-01-12 12:17:03,126 [INFO] project_agent: Using Redis URL: redis://localhost:6379/0
+2026-01-12 12:17:03,132 [INFO] langchain_aws.chat_models.bedrock_converse: Using Bedrock Converse API to generate response
+2026-01-12 12:17:03,829 [INFO] project_agent: Response: You haven't shared your name with me yet. I'm happy to chat with you and learn more about your needs. If you'd like to introduce yourself, I'd be glad to know your name and help you with whatever you're looking for.
+2026-01-12 12:17:18,647 [INFO] project_agent: Session: 1
+2026-01-12 12:17:18,647 [INFO] project_agent: Using Redis URL: redis://localhost:6379/0
+2026-01-12 12:17:18,652 [INFO] langchain_aws.chat_models.bedrock_converse: Using Bedrock Converse API to generate response
+2026-01-12 12:17:19,197 [INFO] project_agent: Response: Sawasdee is a Thai greeting, but I assume it's also your name. Nice to meet you, Sawasdee! How can I help you with our product today?
+2026-01-12 12:17:31,411 [INFO] project_agent: Session: 1
+2026-01-12 12:17:31,411 [INFO] project_agent: Using Redis URL: redis://localhost:6379/0
+2026-01-12 12:17:31,419 [INFO] langchain_aws.chat_models.bedrock_converse: Using Bedrock Converse API to generate response
+2026-01-12 12:17:31,941 [INFO] project_agent: Response: You told me earlier, Sawasdee. That's your name, right?
+2026-01-12 12:17:48,404 [INFO] project_agent: Session: 1
+2026-01-12 12:17:48,404 [INFO] project_agent: Using Redis URL: redis://localhost:6379/0
+2026-01-12 12:17:58,654 [INFO] project_agent: LangChainService initialized with Bedrock model and Redis-backed history.
+2026-01-12 12:18:00,263 [INFO] project_agent: LangChainService initialized with Bedrock model and Redis-backed history.
+2026-01-12 12:18:13,404 [INFO] project_agent: Session: 2
+2026-01-12 12:18:13,405 [INFO] project_agent: Using Redis URL: redis://localhost:6379/0
+2026-01-12 12:18:13,467 [INFO] langchain_aws.chat_models.bedrock_converse: Using Bedrock Converse API to generate response
+2026-01-12 12:18:14,460 [INFO] project_agent: Response: You haven't told me your name. This is the start of our conversation, and I don't have any information about you. If you'd like to share your name, I'd be happy to chat with you!
+2026-01-12 12:18:23,666 [INFO] project_agent: Session: 1
+2026-01-12 12:18:23,667 [INFO] project_agent: Using Redis URL: redis://localhost:6379/0
+2026-01-12 12:18:23,672 [INFO] langchain_aws.chat_models.bedrock_converse: Using Bedrock Converse API to generate response
+2026-01-12 12:18:24,049 [INFO] project_agent: Response: Sawasdee.
+2026-01-12 13:46:30,709 [INFO] project_agent: LangChainService initialized with Bedrock model and Redis-backed history.
+2026-01-12 13:46:32,345 [INFO] project_agent: LangChainService initialized with Bedrock model and Redis-backed history.

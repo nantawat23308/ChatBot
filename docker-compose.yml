@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: chat_qdrant
+    ports:
+      - "6333:6333" # REST API
+    volumes:
+      - ./qdrant_storage:/qdrant/storage # PERSISTENCE: Data lives on your disk
+    restart: always
+
+
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+      - QDRANT_URL=http://qdrant:6333
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_REGION=us-west-2
+    depends_on:
+      - redis
