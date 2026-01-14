@@ -10,7 +10,9 @@ LOG_FILE_PATH = LOG_DIRECTORY / f"{datetime.datetime.now().strftime('%Y%m%d')}.l
 # 1. Configure logging
 
 stream_handler = logging.StreamHandler(sys.stdout)
-file_handler = logging.FileHandler(LOG_FILE_PATH, encoding="utf-8")  # Also save to a file
+file_handler = logging.FileHandler(
+    LOG_FILE_PATH, encoding="utf-8"
+)  # Also save to a file
 
 logging.basicConfig(
     level=logging.INFO,  # Options: DEBUG, INFO, WARNING, ERROR, CRITICAL
