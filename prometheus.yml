@@ -10,3 +10,10 @@ scrape_configs:
   - job_name: "cadvisor"
     static_configs:
       - targets: ['cadvisor:8080'] # Inside the docker network, it's still 8080
+
+  - job_name: "qdrant"
+    static_configs:
+        - targets: ['qdrant:6333'] # Inside the docker network, it's still 6333
+  - job_name: "redis"
+    static_configs:
+        - targets: ['redis:6379'] # Inside the docker network, it's still 9121

@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: chatbot-api
+
+spec:
+    replicas: 3
+    selector:
+        matchLabels:
+            app: chatbot
+    template:
+        metadata:
+            labels:
+                app: chatbot
+        spec:
+            containers:
+                - name: api
+                  image: your-dockerhub-username/chatbot-api:latest
+                  ports:
+                      - containerPort: 8000
+                  resources:
+                      limits:
+                          memory: "4Gi"
+                      requests:
+                          memory: "2Gi"
+                  env:
+                      - name: REDIS_URL
+                        value: "redis://redis:6379/0"
+                      - name: QDRANT_URL
+                        value: "http://qdrant:6333"
+                      - name: HF_HOME
+                        value: "/home/appuser/.cache/huggingface"
+                      - name: AWS_ACCESS_KEY_ID
+                        valueFrom:
+                            secretKeyRef:
+                                name: aws-secrets
+                                key: AWS_ACCESS_KEY_ID
+                      - name: AWS_SECRET_ACCESS_KEY
+                        valueFrom:
+                            secretKeyRef:
+                                name: aws-secrets
+                                key: AWS_SECRET_ACCESS_KEY
+                      - name: AWS_REGION
+                        value: "us-west-2"
+            restartPolicy: Always

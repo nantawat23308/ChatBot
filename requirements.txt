@@ -67,6 +67,7 @@ langchain-classic==1.0.1
 langchain-community==0.4.1
 langchain-core==1.2.7
 langchain-docling==2.0.0
+langchain-experimental==0.4.1
 langchain-openai==1.1.7
 langchain-qdrant==1.1.0
 langchain-redis==0.2.5

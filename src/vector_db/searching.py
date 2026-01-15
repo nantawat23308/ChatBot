@@ -1,7 +1,13 @@
+import os
+
+from dotenv import load_dotenv
+from langchain_classic.retrievers import ContextualCompressionRetriever
+from langchain_classic.retrievers.document_compressors import CrossEncoderReranker
+from langchain_community.cross_encoders import HuggingFaceCrossEncoder
+
+from src.logger import log
 from src.vector_db.embedding_model import EmbeddingModel
 from src.vector_db.vector_store import QdrantVectorStoreWrapper
-from dotenv import load_dotenv
-from src.logger import log
 
 load_dotenv()
 
@@ -54,8 +60,19 @@ def vector_store_as_retriever(collection_name: str = "documents", top_k: int = 5
     return retriever
 
 
-def sparce_search(query: str, collection_name: str = "documents", top_k: int = 5):
-    """Search with Sparse."""
+def rerank_retriever(
+    collection_name: str = "documents", top_k: int = 5, top_k_first_retriever: int = 15
+):
+    """Rerank documents from a retriever based on similarity to the query."""
+    retriever = vector_store_as_retriever(
+        collection_name=collection_name, top_k=top_k_first_retriever
+    )
+    model = HuggingFaceCrossEncoder(model_name=os.getenv("RERANKER_MODEL"))
+    reranker = CrossEncoderReranker(model=model, top_n=top_k)
+    compression_retriever = ContextualCompressionRetriever(
+        base_compressor=reranker, base_retriever=retriever
+    )
+    return compression_retriever
 
 
 if __name__ == "__main__":

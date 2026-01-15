@@ -7,17 +7,27 @@ from src.vector_db.embedding_model import EmbeddingModel
 from src.vector_db.loader_process import LoaderProcess
 from src.vector_db.vector_store import QdrantVectorStoreWrapper
 from src.logger import log
-from typing import List
+from typing import List, Callable
 from langchain_core.vectorstores import VectorStore
 from langchain_core.documents import Document
 
 load_dotenv()
 
 
+def get_vector_store(collection_name: str = "documents") -> VectorStore:
+    """Get Qdrant Vector Store."""
+    embedder = EmbeddingModel()
+    vector_store_wrapper = QdrantVectorStoreWrapper(
+        collection_name=collection_name, embeddings=embedder.embedding_model
+    )
+    vector_store = vector_store_wrapper.get_vector_store()
+    return vector_store
+
+
 def vector_db_add_document(
     vector_store: VectorStore,
     documents: List[Document],
-    chunker=RecursiveCharacterTextSplitter,
+    chunker: Callable = RecursiveCharacterTextSplitter,
     chunk_size: int = 1000,
     chunk_overlap: int = 200,
 ):
@@ -35,11 +45,7 @@ def ingest_data(
     chunk_overlap: int = 200,
 ):
     """Ingest data from a file into Qdrant vector store."""
-    embedder = EmbeddingModel()
-    vector_store_wrapper = QdrantVectorStoreWrapper(
-        collection_name=collection_name, embeddings=embedder.embedding_model
-    )
-    vector_store = vector_store_wrapper.get_vector_store()
+    vector_store = get_vector_store(collection_name=collection_name)
 
     loader_process = LoaderProcess()
     documents = loader_process.loader(file_path)
