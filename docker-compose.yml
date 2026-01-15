@@ -1,9 +1,15 @@
 version: '3.8'
+
 services:
   redis:
     image: redis:alpine
     ports:
       - "6379:6379"
+#    volumes:
+#      - redis_data:/data
+    restart: always
+
+
   qdrant:
     image: qdrant/qdrant:latest
     container_name: chat_qdrant
@@ -21,8 +27,52 @@ services:
     environment:
       - REDIS_URL=redis://redis:6379/0
       - QDRANT_URL=http://qdrant:6333
+      - HF_HOME=/home/appuser/.cache/huggingface
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
       - AWS_REGION=us-west-2
     depends_on:
       - redis
+      - qdrant
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+        reservations:
+          memory: 2G
+    restart: always
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: chat_prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      # ADDED: Persistence for metrics data
+#      - prometheus_data:/prometheus
+    ports:
+      - "9090:9090"
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: chat_grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    depends_on:
+      - prometheus
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    container_name: chat_cadvisor
+    ports:
+      - "8081:8080"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+
+#volumes:
+#  redis_data:
+#  prometheus_data:

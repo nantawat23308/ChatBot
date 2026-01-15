@@ -1,0 +1,12 @@
+
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: "fastapi-app"
+    static_configs:
+      - targets: ["api:8000"] # "api" is the name of your service in docker-compose
+
+  - job_name: "cadvisor"
+    static_configs:
+      - targets: ['cadvisor:8080'] # Inside the docker network, it's still 8080
